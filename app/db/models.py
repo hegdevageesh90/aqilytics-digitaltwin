@@ -7,6 +7,7 @@ class User(Base):
     __tablename__ = 'users'
 
     user_id = Column(String, primary_key=True, index=True)
+    user_name = Column(String)
     location_lat = Column(Float)
     location_lon = Column(Float)
     alert_threshold = Column(Integer)

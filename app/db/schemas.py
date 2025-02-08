@@ -4,6 +4,7 @@ from datetime import datetime
 
 
 class UserBase(BaseModel):
+    user_name: str
     location_lat: float
     location_lon: float
     alert_threshold: int

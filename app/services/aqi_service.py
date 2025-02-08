@@ -1,6 +1,7 @@
 import requests
 
 from app.core.logger import get_logger
+from app.core.config import settings
 
 logger = get_logger()
 
@@ -8,7 +9,7 @@ logger = get_logger()
 def fetch_aqi_data(latitude: float, longitude: float):
     try:
         logger.info(f"Fetching AQI data for coordinates: ({latitude}, {longitude})")
-        url = f"https://api.waqi.info/feed/geo:{latitude};{longitude}/?token={AQI_API_KEY}"
+        url = f"https://api.waqi.info/feed/geo:{latitude};{longitude}/?token={settings.AQI_API_KEY}"
         response = requests.get(url)
         data = response.json()
         if data.get('status') == 'ok':

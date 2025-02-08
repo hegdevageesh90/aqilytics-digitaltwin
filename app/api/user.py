@@ -7,14 +7,21 @@ from app.services.user_service import UserService
 router = APIRouter()
 
 
-@router.post("/users/", response_model=UserResponse)
+@router.post("/users", response_model=UserResponse)
 def create_user(user_data: UserCreate, db: Session = Depends(get_db)):
     return UserService.create_user(db, user_data)
 
 
-@router.get("/users/{user_id}", response_model=UserResponse)
+@router.get("/users/id/{user_id}", response_model=UserResponse)
 def get_user(user_id: str, db: Session = Depends(get_db)):
-    user = UserService.get_user(db, user_id)
+    user = UserService.get_user_by_id(db, user_id)
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    return user
+
+@router.get("/users/name/{user_name}", response_model=UserResponse)
+def get_user(user_name: str, db: Session = Depends(get_db)):
+    user = UserService.get_user_by_name(db, user_name)
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
     return user
